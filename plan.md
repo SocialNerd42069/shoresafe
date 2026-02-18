@@ -37,6 +37,9 @@ Nothing else ships in V1 unless it directly improves “don’t miss the ship.�
 - **Itinerary input**: manual entry **or** paste-to-import (best-effort parsing; times can be missing)
 - **Port Day plan** (per port): Dock vs Tender, buffers, escalating alarms
 - **Escalating alarms** (90/60/30/15/5 + “Head back now”) using local notifications
+  - Design the notifications (title/body) with cruise context + ship-time clarity
+  - Consider actionable notifications (e.g., “I’m on my way”) where supported
+- **On my way / Silence**: a big, obvious “I’m on my way” control that *de-escalates or disables* further alarms for the current port day
 - **Big countdown screen** with one truth: “BE BACK BY __ (SHIP TIME)”
 - **Invite-based Crew sharing** (paid tier): host can invite up to 3 guests onto the same pass (enforced server-side)
 
@@ -64,6 +67,12 @@ For each port day, store:
 - Buffer override (optional)
 
 Home should clearly prompt the user when critical times are missing.
+
+### “On my way” / disable alarms (critical UX)
+Once the user is actually heading back, they need one obvious action to stop the app from nagging them:
+- Primary control on the Active Timer screen: **“I’m on my way”**
+- Behavior (V1): **silence** remaining alerts for this port day timer (or switch to a single gentle “final check” alert)
+- Must be offline and immediate (local notifications cancellation/update)
 
 ### Timer math (once times exist)
 - **hardDeadline** =
@@ -149,7 +158,12 @@ Design vibe: premium modern-cruise; deep navy + sunrise coral accents; strong hi
 - SwiftUI
 - Local persistence: SwiftData (timers, defaults, onboarding answers)
 - Notifications: UNUserNotificationCenter
+  - Includes: escalating schedule, notification content design, and the ability to cancel/de-escalate via “I’m on my way”
 - IAP: StoreKit 2
+
+### Potential V1.1+ surfaces (nice-to-have)
+- **iPhone Widget:** show next port day + countdown to be-back-by (ship time)
+- **Apple Watch companion:** at minimum, mirrored critical notifications; ideally a simple “I’m on my way” action from the watch
 
 ### Backend (required for Crew Pass enforcement)
 Minimal “entitlements + invites” service.
