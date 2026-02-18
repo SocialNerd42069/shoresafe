@@ -64,7 +64,7 @@ private struct ScreenshotRouterView: View {
         case "summary":
             OnboardingSummaryView(viewModel: onboardingVM, onComplete: {})
         case "paywall":
-            PaywallView(isPresented: .constant(true))
+            PaywallView(currentTier: .constant(.solo), onPurchase: { _ in })
         case "home":
             HomeView(timerVM: timerVM)
         case "create":
