@@ -31,24 +31,41 @@ Nothing else ships in V1 unless it directly improves “don’t miss the ship.�
 - No guarantee language (we’re an alarm tool, not a safety promise)
 
 ## 4) Core Feature Bullets (what the app *does*)
-- **Sexy modern onboarding** that collects trip context and teaches ship-time risk
-- **Ship Time Guardrail** so the user doesn’t rely on their phone’s local time by accident
-- **Port Timer** you set once per port day (Dock vs Tender)
-- **Tender Mode** that pushes you earlier and optionally uses “Last Tender Back” if you have it
-- **Buffer defaults** (Dock: 60m, Tender: 90m) with quick adjust
+- **Modern-cruise onboarding that actually sets up the trip** (not just marketing screens)
+- **Ship Time Guardrail** so the user can’t accidentally rely on phone local time
+- **Trip Setup**: add ports now, fill in “all aboard / last tender” times later when you get them
+- **Itinerary input**: manual entry **or** paste-to-import (best-effort parsing; times can be missing)
+- **Port Day plan** (per port): Dock vs Tender, buffers, escalating alarms
 - **Escalating alarms** (90/60/30/15/5 + “Head back now”) using local notifications
 - **Big countdown screen** with one truth: “BE BACK BY __ (SHIP TIME)”
 - **Invite-based Crew sharing** (paid tier): host can invite up to 3 guests onto the same pass (enforced server-side)
 
 ## 5) How It Works (Logistics)
-### Setup (30 seconds)
-1) Choose **All Aboard time** (required)
-2) Choose **Dock** or **Tender**
-3) Pick buffer (default suggested)
-4) (Tender) Optional: enter **Last Tender Back** time if you have it
-5) Tap **Start Port Timer**
+### Setup (first run)
+**Goal:** the user ends onboarding with a real “Trip” configured so Home is immediately useful.
 
-### Timer math
+1) **Ship time**
+   - Default: **Ship time = local time**
+   - If not: set ship-time behavior (simple offset or ship time zone vs phone)
+   - Explain *why it matters* (“ship time” is the schedule the ship runs on).
+2) **Ports**
+   - Add ports manually **or** paste/import a basic itinerary list.
+   - Each port can exist with **missing** fields.
+3) **Defaults**
+   - Default buffers (Dock vs Tender)
+   - Default alert schedule
+
+### Port configuration (can be done now or later)
+For each port day, store:
+- Name + date
+- Mode: Dock vs Tender
+- **All aboard time** (optional at first; can be unknown)
+- **Last tender back** (optional; only if tender)
+- Buffer override (optional)
+
+Home should clearly prompt the user when critical times are missing.
+
+### Timer math (once times exist)
 - **hardDeadline** =
   - tender w/ lastTenderTime: `min(allAboard, lastTender)`
   - otherwise: `allAboard`
@@ -56,7 +73,7 @@ Nothing else ships in V1 unless it directly improves “don’t miss the ship.�
 - Schedule alerts at: `beBackBy - {90,60,30,15,5}` and at `beBackBy`.
 
 ### Offline
-Once a timer is started, alarms are **local**. No connectivity required.
+Once a port day timer is started, alarms are **local**. No connectivity required.
 
 ## 6) Pricing / Monetization (V1 — charge immediately)
 Two one-time “per cruise” products (7-day window):
@@ -77,18 +94,27 @@ Two one-time “per cruise” products (7-day window):
 
 ## 7) UX / Screen Map (SwiftUI)
 
-### Onboarding (use the “Perfect Day Ashore” flow as baseline)
-Design vibe: full-bleed port imagery, deep navy + sunrise coral accents, progress dots, subtle micro-animations.
+### Onboarding / Trip Setup (baseline)
+Design vibe: premium modern-cruise; deep navy + sunrise coral accents; strong hierarchy; simple forms; progress dots; subtle motion.
 
-1) **Hook**
-   - “Your ship. Your shore day. Zero stress.”
-2) **Cruise date** (required)
-3) **Cruise line + ship** (optional; logo chips + autocomplete)
-4) **Ship time vs local time** (the “aha” lesson with a mini demo)
-5) **Buffer persona** (Safety Net / Balanced / Thrill Seeker)
-6) **Warning chips** (preselected based on persona)
-7) **Notifications soft-ask** → request permission
-8) **Summary/celebration** → CTA: “Plan my first port day”
+**Outcome:** user finishes with a usable Trip (ports can be imported/added now; times can be missing and filled later).
+
+1) **Hook / why this matters**
+   - “Ship time isn’t your phone time.” (teach the risk fast)
+2) **Ship time setup**
+   - Ship time = local time (default)
+   - Or: ship time differs → set offset / ship time zone
+3) **Add ports**
+   - Option A: Manual add (name + date)
+   - Option B: Import (paste itinerary text) → parse best-effort
+   - Copy makes clear: **all aboard / last tender times can be added later**
+4) **Defaults**
+   - Buffer defaults (Dock vs Tender)
+   - Alert schedule preset
+5) **Notifications**
+   - Soft-ask → request permission (after the user has “committed”)
+6) **Trip ready summary**
+   - CTA: “Set up my first port day” / “View my next port day”
 
 ### Core screens
 - **Home**
