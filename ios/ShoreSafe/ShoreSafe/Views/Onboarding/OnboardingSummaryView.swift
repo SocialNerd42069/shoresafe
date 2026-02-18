@@ -19,10 +19,10 @@ struct OnboardingSummaryView: View {
                         .foregroundStyle(Color.ssSuccess)
                 }
 
-                Text("You're all set")
+                Text("Ready to sail")
                     .ssOnboardingTitle()
 
-                Text("Your perfect day ashore starts with one simple timer.")
+                Text("Here's your setup. You can tweak everything in settings later.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
             }

@@ -4,7 +4,7 @@ struct OnboardingDateView: View {
     @ObservedObject var viewModel: OnboardingViewModel
 
     var body: some View {
-        SSOnboardingPage(step: 1, totalSteps: viewModel.totalSteps) {
+        SSOnboardingPage(step: 2, totalSteps: viewModel.totalSteps) {
             VStack(spacing: SSSpacing.lg) {
                 Image(systemName: "calendar.badge.clock")
                     .font(.system(size: 44))
@@ -13,7 +13,7 @@ struct OnboardingDateView: View {
                 Text("When do you sail?")
                     .ssOnboardingTitle()
 
-                Text("We'll use this to keep your port days organized.")
+                Text("We'll count down to all-aboard for every port day on your cruise.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
             }

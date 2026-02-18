@@ -10,10 +10,11 @@ struct OnboardingBufferView: View {
                     .font(.system(size: 44))
                     .foregroundStyle(Color.ssCoral)
 
-                Text("Your buffer style")
+                Text("How early should\nwe alert you?")
                     .ssOnboardingTitle()
+                    .multilineTextAlignment(.center)
 
-                Text("How much margin do you want before your 'head back' alert?")
+                Text("Pick your comfort level. We'll set your head-back buffer for dock and tender ports.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
             }

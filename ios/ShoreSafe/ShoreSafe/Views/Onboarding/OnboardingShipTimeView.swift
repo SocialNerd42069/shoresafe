@@ -3,29 +3,29 @@ import SwiftUI
 struct OnboardingShipTimeView: View {
     @ObservedObject var viewModel: OnboardingViewModel
     @State private var showLocalTime = false
-    @State private var demoPhase = 0
 
     var body: some View {
-        SSOnboardingPage(step: 3, totalSteps: viewModel.totalSteps) {
+        SSOnboardingPage(step: 1, totalSteps: viewModel.totalSteps) {
             VStack(spacing: SSSpacing.lg) {
                 Image(systemName: "clock.badge.exclamationmark")
                     .font(.system(size: 44))
                     .foregroundStyle(Color.ssWarning)
 
-                Text("Ship time ≠ local time")
+                Text("Ship time ≠\nlocal time")
                     .ssOnboardingTitle()
+                    .multilineTextAlignment(.center)
 
-                Text("When your ship visits a different time zone, **your phone switches automatically** — but the ship doesn't.")
+                Text("Your phone auto-adjusts to local time zones. The ship doesn't. That mismatch strands cruisers every week.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, SSSpacing.sm)
+                    .padding(.horizontal, SSSpacing.xs)
             }
 
             Spacer().frame(height: SSSpacing.xl)
 
             // Interactive demo
             VStack(spacing: SSSpacing.md) {
-                Text("TAP TO SEE THE RISK")
+                Text("TAP THE CLOCKS")
                     .font(.ssCaption)
                     .foregroundStyle(Color.ssTextMuted)
                     .tracking(1.5)
@@ -33,7 +33,6 @@ struct OnboardingShipTimeView: View {
                 Button {
                     withAnimation(.spring(response: 0.5)) {
                         showLocalTime.toggle()
-                        demoPhase = showLocalTime ? 1 : 0
                     }
                 } label: {
                     HStack(spacing: SSSpacing.xl) {
@@ -63,6 +62,7 @@ struct OnboardingShipTimeView: View {
                             Text(showLocalTime ? "3:30 PM" : "4:30 PM")
                                 .font(.ssCountdownSmall)
                                 .foregroundStyle(showLocalTime ? Color.ssDanger : Color.ssTextOnDark)
+                                .contentTransition(.numericText())
                         }
                         .foregroundStyle(showLocalTime ? Color.ssDanger : Color.ssTextMuted)
                     }
@@ -81,7 +81,7 @@ struct OnboardingShipTimeView: View {
                 .buttonStyle(.plain)
 
                 if showLocalTime {
-                    Text("Your phone says 3:30 — but the ship leaves at 4:30 **ship time**. That hour difference has stranded thousands.")
+                    Text("All-aboard is 4:30 **ship time** — but your phone says 3:30. You think you have an hour. You don't.")
                         .font(.ssBodySmall)
                         .foregroundStyle(Color.ssSunrise)
                         .multilineTextAlignment(.center)
@@ -97,7 +97,7 @@ struct OnboardingShipTimeView: View {
                 }
                 .frame(width: 100)
 
-                SSButton(title: "Got it", icon: "checkmark") {
+                SSButton(title: "I see the risk", icon: "checkmark") {
                     viewModel.next()
                 }
             }

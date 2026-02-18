@@ -12,10 +12,11 @@ struct OnboardingWarningsView: View {
                     .font(.system(size: 44))
                     .foregroundStyle(Color.ssSunrise)
 
-                Text("Alert schedule")
+                Text("Your alert\nschedule")
                     .ssOnboardingTitle()
+                    .multilineTextAlignment(.center)
 
-                Text("We'll nudge you at these intervals before your 'head back' time. Adjust any time.")
+                Text("Choose when we nudge you before it's time to head back. You can change these later.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
             }

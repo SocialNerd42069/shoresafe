@@ -7,15 +7,22 @@ struct OnboardingHookView: View {
         SSOnboardingPage(step: 0, totalSteps: viewModel.totalSteps) {
             Spacer()
 
-            VStack(spacing: SSSpacing.lg) {
-                // Icon cluster
+            VStack(spacing: SSSpacing.xl) {
+                // Hero icon — ship + clock conveys the core concept
                 ZStack {
                     Circle()
-                        .fill(Color.ssCoral.opacity(0.15))
-                        .frame(width: 140, height: 140)
+                        .fill(
+                            RadialGradient(
+                                colors: [Color.ssCoral.opacity(0.2), Color.ssCoral.opacity(0.05)],
+                                center: .center,
+                                startRadius: 20,
+                                endRadius: 80
+                            )
+                        )
+                        .frame(width: 160, height: 160)
 
-                    Image(systemName: "sun.and.horizon.fill")
-                        .font(.system(size: 56))
+                    Image(systemName: "ferry.fill")
+                        .font(.system(size: 64))
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [.ssCoral, .ssSunrise],
@@ -24,22 +31,23 @@ struct OnboardingHookView: View {
                             )
                         )
                 }
-                .padding(.bottom, SSSpacing.md)
 
-                Text("Your ship.\nYour shore day.\nZero stress.")
-                    .ssOnboardingTitle()
-                    .multilineTextAlignment(.center)
+                VStack(spacing: SSSpacing.md) {
+                    Text("Never miss\nthe ship.")
+                        .ssOnboardingTitle()
+                        .multilineTextAlignment(.center)
 
-                Text("ShoreSafe keeps you aligned to ship time so you never become a pier runner.")
-                    .ssOnboardingBody()
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, SSSpacing.md)
+                    Text("ShoreSafe tracks ship time so you always make it back before all-aboard — even when your phone clock lies.")
+                        .ssOnboardingBody()
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, SSSpacing.sm)
+                }
             }
 
             Spacer()
             Spacer()
 
-            SSButton(title: "Let's set up", icon: "arrow.right") {
+            SSButton(title: "Get started", icon: "arrow.right") {
                 viewModel.next()
             }
             .padding(.bottom, SSSpacing.xxl)

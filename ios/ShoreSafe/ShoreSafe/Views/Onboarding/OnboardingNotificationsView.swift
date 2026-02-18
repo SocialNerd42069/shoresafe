@@ -19,21 +19,22 @@ struct OnboardingNotificationsView: View {
                         .symbolEffect(.pulse)
                 }
 
-                Text("Stay in the loop")
+                Text("Don't miss\nthe alerts")
                     .ssOnboardingTitle()
+                    .multilineTextAlignment(.center)
 
-                Text("ShoreSafe sends calm, timely reminders as your 'head back' time approaches. No spam — just the alerts you picked.")
+                Text("ShoreSafe sends escalating reminders as all-aboard approaches. No spam — only the alerts you chose.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, SSSpacing.sm)
 
                 // Preview of what alerts look like
                 VStack(spacing: SSSpacing.sm) {
-                    NotificationPreview(time: "2:30 PM", text: "60 minutes until head-back time")
-                    NotificationPreview(time: "3:00 PM", text: "30 minutes — start wrapping up")
-                    NotificationPreview(time: "3:15 PM", text: "15 minutes — head back now")
+                    NotificationPreview(time: "2:30 PM", text: "60 min to all-aboard — no rush yet")
+                    NotificationPreview(time: "3:00 PM", text: "30 min — start wrapping up")
+                    NotificationPreview(time: "3:15 PM", text: "15 min — head to the gangway")
                 }
-                .padding(.top, SSSpacing.md)
+                .padding(.top, SSSpacing.sm)
             }
 
             Spacer()
@@ -63,7 +64,7 @@ private struct NotificationPreview: View {
 
     var body: some View {
         HStack(spacing: SSSpacing.sm) {
-            Image(systemName: "sun.and.horizon.fill")
+            Image(systemName: "ferry.fill")
                 .font(.caption)
                 .foregroundStyle(Color.ssCoral)
                 .frame(width: 24, height: 24)

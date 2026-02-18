@@ -9,7 +9,7 @@ struct OnboardingCruiseLineView: View {
     ]
 
     var body: some View {
-        SSOnboardingPage(step: 2, totalSteps: viewModel.totalSteps) {
+        SSOnboardingPage(step: 3, totalSteps: viewModel.totalSteps) {
             VStack(spacing: SSSpacing.lg) {
                 Image(systemName: "ferry.fill")
                     .font(.system(size: 44))
@@ -18,7 +18,7 @@ struct OnboardingCruiseLineView: View {
                 Text("Which cruise line?")
                     .ssOnboardingTitle()
 
-                Text("Optional — helps us tailor your experience.")
+                Text("Optional — this helps personalize your setup.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
             }
