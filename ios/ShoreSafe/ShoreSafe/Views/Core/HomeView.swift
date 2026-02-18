@@ -30,7 +30,7 @@ struct HomeView: View {
                         }
                     }
 
-                    // Quick actions
+                    // Crew action
                     if timerVM.purchaseTier == .crew {
                         SSButton(title: "Manage Crew", style: .outline, icon: "person.3") {
                             showCrewInvites = true
@@ -55,8 +55,9 @@ struct HomeView: View {
                     Button {
                         showSettings = true
                     } label: {
-                        Image(systemName: "gearshape")
-                            .foregroundStyle(Color.ssNavy)
+                        Image(systemName: "gearshape.fill")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(Color.ssNavy.opacity(0.6))
                     }
                 }
             }
@@ -85,13 +86,13 @@ struct HomeView: View {
     // MARK: - Header Card
 
     private var headerCard: some View {
-        VStack(spacing: SSSpacing.sm) {
-            HStack {
+        VStack(alignment: .leading, spacing: SSSpacing.md) {
+            HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: SSSpacing.xs) {
-                    Text("Next Shore Day")
-                        .font(.ssCaption)
+                    Text("NEXT SHORE DAY")
+                        .font(.ssOverline)
                         .foregroundStyle(Color.ssTextMuted)
-                        .textCase(.uppercase)
+                        .tracking(1.5)
                     Text("Cozumel, Mexico")
                         .font(.ssHeadline)
                         .foregroundStyle(Color.ssTextPrimary)
@@ -102,8 +103,8 @@ struct HomeView: View {
         }
         .padding(SSSpacing.cardPadding)
         .background(Color.ssCard)
-        .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
-        .shadow(color: SSShadow.card, radius: 8, x: 0, y: 2)
+        .clipShape(RoundedRectangle(cornerRadius: SSRadius.xl))
+        .shadow(color: SSShadow.card, radius: 12, x: 0, y: 4)
     }
 
     // MARK: - Active Timer Banner
@@ -112,12 +113,22 @@ struct HomeView: View {
         NavigationLink {
             ActiveTimerView(timerVM: timerVM)
         } label: {
-            HStack {
+            HStack(spacing: SSSpacing.md) {
+                // Pulsing dot
+                Circle()
+                    .fill(Color.ssCoral)
+                    .frame(width: 10, height: 10)
+                    .overlay {
+                        Circle()
+                            .stroke(Color.ssCoral.opacity(0.4), lineWidth: 2)
+                            .frame(width: 18, height: 18)
+                    }
+
                 VStack(alignment: .leading, spacing: SSSpacing.xs) {
-                    Text("ACTIVE TIMER")
-                        .font(.ssCaption)
-                        .foregroundStyle(.white.opacity(0.7))
-                        .tracking(1)
+                    Text("ACTIVE")
+                        .font(.ssOverline)
+                        .foregroundStyle(.white.opacity(0.6))
+                        .tracking(1.5)
                     Text(timer.portName)
                         .font(.ssSubheadline)
                         .foregroundStyle(.white)
@@ -127,19 +138,21 @@ struct HomeView: View {
 
                 VStack(alignment: .trailing, spacing: SSSpacing.xs) {
                     Text("BE BACK BY")
-                        .font(.ssCaptionSmall)
-                        .foregroundStyle(.white.opacity(0.6))
+                        .font(.ssOverline)
+                        .foregroundStyle(.white.opacity(0.5))
+                        .tracking(1)
                     Text(timer.beBackBy.formatted(date: .omitted, time: .shortened))
                         .font(.ssCountdownSmall)
                         .foregroundStyle(.white)
                 }
 
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(.white.opacity(0.5))
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.white.opacity(0.4))
             }
             .padding(SSSpacing.cardPadding)
-            .background(LinearGradient.ssNavyGradient)
-            .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
+            .background(LinearGradient.ssOceanGradient)
+            .clipShape(RoundedRectangle(cornerRadius: SSRadius.xl))
         }
     }
 
@@ -147,22 +160,27 @@ struct HomeView: View {
 
     private var recentTimersSection: some View {
         VStack(alignment: .leading, spacing: SSSpacing.md) {
-            Text("Recent")
-                .font(.ssSubheadline)
-                .foregroundStyle(Color.ssTextSecondary)
+            Text("RECENT")
+                .font(.ssOverline)
+                .foregroundStyle(Color.ssTextMuted)
+                .tracking(1.5)
 
             ForEach(timerVM.recentTimers.filter { !$0.isActive }) { timer in
                 HStack(spacing: SSSpacing.md) {
-                    Image(systemName: timer.mode.icon)
-                        .font(.body)
-                        .foregroundStyle(Color.ssSea)
-                        .frame(width: 32)
+                    ZStack {
+                        Circle()
+                            .fill(Color.ssSea.opacity(0.1))
+                            .frame(width: 40, height: 40)
+                        Image(systemName: timer.mode.icon)
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(Color.ssSea)
+                    }
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(timer.portName)
                             .font(.ssBodyMedium)
                             .foregroundStyle(Color.ssTextPrimary)
-                        Text("\(timer.mode.rawValue) · \(timer.bufferMinutes)m buffer")
+                        Text("\(timer.mode.rawValue) \u{00B7} \(timer.bufferMinutes)m buffer")
                             .font(.ssBodySmall)
                             .foregroundStyle(Color.ssTextSecondary)
                     }
@@ -175,7 +193,8 @@ struct HomeView: View {
                 }
                 .padding(SSSpacing.md)
                 .background(Color.ssCard)
-                .clipShape(RoundedRectangle(cornerRadius: SSRadius.md))
+                .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
+                .shadow(color: SSShadow.card, radius: 6, x: 0, y: 2)
             }
         }
     }
@@ -184,25 +203,30 @@ struct HomeView: View {
 
     private var shipTimeCard: some View {
         HStack(spacing: SSSpacing.md) {
-            Image(systemName: "clock.badge.exclamationmark")
-                .font(.title2)
-                .foregroundStyle(Color.ssWarning)
+            ZStack {
+                Circle()
+                    .fill(Color.ssWarning.opacity(0.1))
+                    .frame(width: 44, height: 44)
+                Image(systemName: "clock.badge.exclamationmark")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundStyle(Color.ssWarning)
+            }
 
             VStack(alignment: .leading, spacing: 2) {
                 Text("Ship Time Reminder")
                     .font(.ssBodyMedium)
                     .foregroundStyle(Color.ssTextPrimary)
-                Text("Your phone auto-adjusts to local time. All-aboard is always in ship time.")
+                Text("All-aboard is always in ship time. Your phone auto-adjusts to local.")
                     .font(.ssBodySmall)
                     .foregroundStyle(Color.ssTextSecondary)
             }
         }
         .padding(SSSpacing.cardPadding)
-        .background(Color.ssWarning.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
+        .background(Color.ssWarning.opacity(0.06))
+        .clipShape(RoundedRectangle(cornerRadius: SSRadius.xl))
         .overlay {
-            RoundedRectangle(cornerRadius: SSRadius.lg)
-                .stroke(Color.ssWarning.opacity(0.2), lineWidth: 1)
+            RoundedRectangle(cornerRadius: SSRadius.xl)
+                .stroke(Color.ssWarning.opacity(0.15), lineWidth: 1)
         }
     }
 }

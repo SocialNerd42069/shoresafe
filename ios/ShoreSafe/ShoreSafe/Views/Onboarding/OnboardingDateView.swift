@@ -6,19 +6,25 @@ struct OnboardingDateView: View {
     var body: some View {
         SSOnboardingPage(step: 2, totalSteps: viewModel.totalSteps) {
             VStack(spacing: SSSpacing.lg) {
-                Image(systemName: "calendar.badge.clock")
-                    .font(.system(size: 44))
-                    .foregroundStyle(Color.ssSunrise)
+                ZStack {
+                    Circle()
+                        .fill(Color.ssSunrise.opacity(0.12))
+                        .frame(width: 72, height: 72)
+                    Image(systemName: "calendar.badge.clock")
+                        .font(.system(size: 32, weight: .medium))
+                        .foregroundStyle(Color.ssSunrise)
+                }
 
                 Text("When do you sail?")
                     .ssOnboardingTitle()
 
-                Text("We'll count down to all-aboard for every port day on your cruise.")
+                Text("We'll set up port-day countdowns\nfor your cruise.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
+                    .lineSpacing(3)
             }
 
-            Spacer()
+            Spacer().frame(height: SSSpacing.md)
 
             DatePicker(
                 "Cruise date",
@@ -29,21 +35,16 @@ struct OnboardingDateView: View {
             .datePickerStyle(.graphical)
             .tint(Color.ssCoral)
             .colorScheme(.dark)
-            .padding(.horizontal, SSSpacing.sm)
+            .padding(.horizontal, SSSpacing.xs)
 
             Spacer()
 
-            HStack(spacing: SSSpacing.md) {
-                SSButton(title: "Back", style: .ghost) {
-                    viewModel.back()
-                }
-                .frame(width: 100)
-
-                SSButton(title: "Next", icon: "arrow.right") {
-                    viewModel.next()
-                }
-            }
-            .padding(.bottom, SSSpacing.xxl)
+            SSOnboardingNav(
+                backLabel: "Back",
+                nextLabel: "Next",
+                onBack: { viewModel.back() },
+                onNext: { viewModel.next() }
+            )
         }
     }
 }

@@ -11,24 +11,28 @@ struct CreateTimerView: View {
                     // Port name
                     VStack(alignment: .leading, spacing: SSSpacing.sm) {
                         Text("PORT NAME")
-                            .font(.ssCaption)
+                            .font(.ssOverline)
                             .foregroundStyle(Color.ssTextMuted)
-                            .tracking(1)
+                            .tracking(1.5)
 
                         TextField("e.g. Cozumel", text: $timerVM.portName)
                             .font(.ssBody)
                             .padding(SSSpacing.md)
                             .background(Color.ssSurface)
-                            .clipShape(RoundedRectangle(cornerRadius: SSRadius.md))
+                            .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: SSRadius.lg)
+                                    .stroke(Color.ssNavy.opacity(0.08), lineWidth: 1)
+                            }
                     }
 
                     // All Aboard Time
                     VStack(alignment: .leading, spacing: SSSpacing.sm) {
                         HStack {
                             Text("ALL ABOARD TIME")
-                                .font(.ssCaption)
+                                .font(.ssOverline)
                                 .foregroundStyle(Color.ssTextMuted)
-                                .tracking(1)
+                                .tracking(1.5)
                             Spacer()
                             SSBadge(text: "Ship Time", color: .ssSea)
                         }
@@ -46,11 +50,11 @@ struct CreateTimerView: View {
                     // Port Mode
                     VStack(alignment: .leading, spacing: SSSpacing.sm) {
                         Text("PORT TYPE")
-                            .font(.ssCaption)
+                            .font(.ssOverline)
                             .foregroundStyle(Color.ssTextMuted)
-                            .tracking(1)
+                            .tracking(1.5)
 
-                        HStack(spacing: SSSpacing.md) {
+                        HStack(spacing: SSSpacing.sm) {
                             ForEach(PortMode.allCases) { mode in
                                 Button {
                                     withAnimation(.spring(response: 0.3)) {
@@ -59,8 +63,13 @@ struct CreateTimerView: View {
                                     }
                                 } label: {
                                     VStack(spacing: SSSpacing.sm) {
-                                        Image(systemName: mode.icon)
-                                            .font(.title2)
+                                        ZStack {
+                                            Circle()
+                                                .fill(timerVM.portMode == mode ? Color.ssCoral.opacity(0.12) : Color.ssSurface)
+                                                .frame(width: 48, height: 48)
+                                            Image(systemName: mode.icon)
+                                                .font(.system(size: 20, weight: .medium))
+                                        }
                                         Text(mode.rawValue)
                                             .font(.ssSubheadline)
                                         Text(mode.description)
@@ -68,25 +77,20 @@ struct CreateTimerView: View {
                                             .foregroundStyle(Color.ssTextSecondary)
                                     }
                                     .frame(maxWidth: .infinity)
-                                    .padding(SSSpacing.md)
+                                    .padding(.vertical, SSSpacing.md)
                                     .foregroundStyle(
                                         timerVM.portMode == mode ? Color.ssCoral : Color.ssTextPrimary
                                     )
-                                    .background(
-                                        timerVM.portMode == mode
-                                            ? Color.ssCoral.opacity(0.08)
-                                            : Color.ssSurface
-                                    )
-                                    .clipShape(RoundedRectangle(cornerRadius: SSRadius.md))
+                                    .background(Color.ssCard)
+                                    .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
                                     .overlay {
-                                        RoundedRectangle(cornerRadius: SSRadius.md)
+                                        RoundedRectangle(cornerRadius: SSRadius.lg)
                                             .stroke(
-                                                timerVM.portMode == mode
-                                                    ? Color.ssCoral
-                                                    : Color.clear,
-                                                lineWidth: 1.5
+                                                timerVM.portMode == mode ? Color.ssCoral : Color.ssNavy.opacity(0.08),
+                                                lineWidth: timerVM.portMode == mode ? 1.5 : 1
                                             )
                                     }
+                                    .shadow(color: timerVM.portMode == mode ? SSShadow.glow : .clear, radius: 8, x: 0, y: 2)
                                 }
                                 .buttonStyle(.plain)
                             }
@@ -96,9 +100,9 @@ struct CreateTimerView: View {
                     // Buffer
                     VStack(alignment: .leading, spacing: SSSpacing.sm) {
                         Text("BUFFER")
-                            .font(.ssCaption)
+                            .font(.ssOverline)
                             .foregroundStyle(Color.ssTextMuted)
-                            .tracking(1)
+                            .tracking(1.5)
 
                         HStack(spacing: SSSpacing.sm) {
                             ForEach(timerVM.bufferOptions, id: \.self) { minutes in
@@ -142,11 +146,15 @@ struct CreateTimerView: View {
                             }
                         }
                         .padding(SSSpacing.md)
-                        .background(Color.ssWarning.opacity(0.06))
-                        .clipShape(RoundedRectangle(cornerRadius: SSRadius.md))
+                        .background(Color.ssWarning.opacity(0.05))
+                        .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: SSRadius.lg)
+                                .stroke(Color.ssWarning.opacity(0.15), lineWidth: 1)
+                        }
                     }
 
-                    Spacer().frame(height: SSSpacing.md)
+                    Spacer().frame(height: SSSpacing.sm)
 
                     // Start button
                     SSButton(title: "Start Port Timer", icon: "play.fill") {

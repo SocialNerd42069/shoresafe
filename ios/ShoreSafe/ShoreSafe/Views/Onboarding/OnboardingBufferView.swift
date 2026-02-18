@@ -6,22 +6,28 @@ struct OnboardingBufferView: View {
     var body: some View {
         SSOnboardingPage(step: 4, totalSteps: viewModel.totalSteps) {
             VStack(spacing: SSSpacing.lg) {
-                Image(systemName: "gauge.with.needle")
-                    .font(.system(size: 44))
-                    .foregroundStyle(Color.ssCoral)
+                ZStack {
+                    Circle()
+                        .fill(Color.ssCoral.opacity(0.12))
+                        .frame(width: 72, height: 72)
+                    Image(systemName: "gauge.with.needle")
+                        .font(.system(size: 32, weight: .medium))
+                        .foregroundStyle(Color.ssCoral)
+                }
 
                 Text("How early should\nwe alert you?")
                     .ssOnboardingTitle()
                     .multilineTextAlignment(.center)
 
-                Text("Pick your comfort level. We'll set your head-back buffer for dock and tender ports.")
+                Text("Pick your comfort level. We'll set your\nhead-back buffer for dock and tender ports.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
+                    .lineSpacing(3)
             }
 
             Spacer().frame(height: SSSpacing.xl)
 
-            VStack(spacing: SSSpacing.md) {
+            VStack(spacing: SSSpacing.sm) {
                 ForEach(BufferPersona.allCases) { persona in
                     Button {
                         withAnimation(.spring(response: 0.3)) {
@@ -39,17 +45,12 @@ struct OnboardingBufferView: View {
 
             Spacer()
 
-            HStack(spacing: SSSpacing.md) {
-                SSButton(title: "Back", style: .ghost) {
-                    viewModel.back()
-                }
-                .frame(width: 100)
-
-                SSButton(title: "Next", icon: "arrow.right") {
-                    viewModel.next()
-                }
-            }
-            .padding(.bottom, SSSpacing.xxl)
+            SSOnboardingNav(
+                backLabel: "Back",
+                nextLabel: "Next",
+                onBack: { viewModel.back() },
+                onNext: { viewModel.next() }
+            )
         }
     }
 }
@@ -62,10 +63,15 @@ private struct PersonaCard: View {
 
     var body: some View {
         HStack(spacing: SSSpacing.md) {
-            Image(systemName: persona.icon)
-                .font(.title2)
-                .foregroundStyle(isSelected ? Color.ssCoral : Color.ssTextMuted)
-                .frame(width: 40)
+            // Icon
+            ZStack {
+                Circle()
+                    .fill(isSelected ? Color.ssCoral.opacity(0.15) : Color.ssGlass)
+                    .frame(width: 44, height: 44)
+                Image(systemName: persona.icon)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundStyle(isSelected ? Color.ssCoral : Color.ssTextMuted)
+            }
 
             VStack(alignment: .leading, spacing: SSSpacing.xs) {
                 Text(persona.rawValue)
@@ -76,9 +82,9 @@ private struct PersonaCard: View {
                     .font(.ssBodySmall)
                     .foregroundStyle(Color.ssTextMuted)
 
-                HStack(spacing: SSSpacing.sm) {
-                    Text("Dock: \(persona.dockBuffer)m")
-                    Text("Tender: \(persona.tenderBuffer)m")
+                HStack(spacing: SSSpacing.md) {
+                    Label("Dock \(persona.dockBuffer)m", systemImage: "arrow.down.to.line")
+                    Label("Tender \(persona.tenderBuffer)m", systemImage: "ferry")
                 }
                 .font(.ssCaptionSmall)
                 .foregroundStyle(Color.ssSea)
@@ -87,16 +93,16 @@ private struct PersonaCard: View {
             Spacer()
 
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                .foregroundStyle(isSelected ? Color.ssCoral : Color.ssTextMuted)
+                .foregroundStyle(isSelected ? Color.ssCoral : Color.ssTextMuted.opacity(0.5))
                 .font(.title3)
         }
         .padding(SSSpacing.md)
-        .background(isSelected ? Color.ssCoral.opacity(0.12) : Color.white.opacity(0.06))
-        .clipShape(RoundedRectangle(cornerRadius: SSRadius.md))
+        .background(isSelected ? Color.ssCoral.opacity(0.08) : Color.ssGlass)
+        .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
         .overlay {
-            RoundedRectangle(cornerRadius: SSRadius.md)
+            RoundedRectangle(cornerRadius: SSRadius.lg)
                 .stroke(
-                    isSelected ? Color.ssCoral.opacity(0.4) : Color.white.opacity(0.1),
+                    isSelected ? Color.ssCoral.opacity(0.4) : Color.ssGlassBorder,
                     lineWidth: 1
                 )
         }

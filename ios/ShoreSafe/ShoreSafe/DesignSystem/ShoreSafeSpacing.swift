@@ -9,6 +9,7 @@ enum SSSpacing {
     static let lg: CGFloat = 24
     static let xl: CGFloat = 32
     static let xxl: CGFloat = 48
+    static let xxxl: CGFloat = 64
 
     static let cardPadding: CGFloat = 20
     static let screenHorizontal: CGFloat = 24
@@ -20,10 +21,12 @@ enum SSRadius {
     static let md: CGFloat = 12
     static let lg: CGFloat = 16
     static let xl: CGFloat = 24
+    static let xxl: CGFloat = 28
     static let pill: CGFloat = 100
 }
 
 enum SSShadow {
     static let card = Color.black.opacity(0.06)
     static let elevated = Color.black.opacity(0.12)
+    static let glow = Color.ssCoral.opacity(0.25)
 }

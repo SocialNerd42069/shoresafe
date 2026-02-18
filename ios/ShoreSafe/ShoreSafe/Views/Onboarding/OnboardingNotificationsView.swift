@@ -8,13 +8,30 @@ struct OnboardingNotificationsView: View {
             Spacer()
 
             VStack(spacing: SSSpacing.lg) {
+                // Glowing bell
                 ZStack {
                     Circle()
-                        .fill(Color.ssCoral.opacity(0.15))
-                        .frame(width: 120, height: 120)
+                        .fill(
+                            RadialGradient(
+                                colors: [Color.ssCoral.opacity(0.2), Color.clear],
+                                center: .center,
+                                startRadius: 10,
+                                endRadius: 80
+                            )
+                        )
+                        .frame(width: 160, height: 160)
+                        .blur(radius: 15)
+
+                    Circle()
+                        .fill(Color.ssGlassLight)
+                        .frame(width: 100, height: 100)
+                        .overlay {
+                            Circle()
+                                .stroke(Color.ssCoral.opacity(0.3), lineWidth: 1)
+                        }
 
                     Image(systemName: "bell.badge.fill")
-                        .font(.system(size: 48))
+                        .font(.system(size: 40, weight: .medium))
                         .foregroundStyle(Color.ssCoral)
                         .symbolEffect(.pulse)
                 }
@@ -23,18 +40,18 @@ struct OnboardingNotificationsView: View {
                     .ssOnboardingTitle()
                     .multilineTextAlignment(.center)
 
-                Text("ShoreSafe sends escalating reminders as all-aboard approaches. No spam — only the alerts you chose.")
+                Text("Escalating reminders as all-aboard approaches.\nNo spam — only the alerts you chose.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, SSSpacing.sm)
+                    .lineSpacing(3)
 
-                // Preview of what alerts look like
+                // Notification previews
                 VStack(spacing: SSSpacing.sm) {
-                    NotificationPreview(time: "2:30 PM", text: "60 min to all-aboard — no rush yet")
-                    NotificationPreview(time: "3:00 PM", text: "30 min — start wrapping up")
-                    NotificationPreview(time: "3:15 PM", text: "15 min — head to the gangway")
+                    NotificationPreview(time: "2:30 PM", text: "60 min to all-aboard — no rush yet", opacity: 0.6)
+                    NotificationPreview(time: "3:00 PM", text: "30 min — start wrapping up", opacity: 0.8)
+                    NotificationPreview(time: "3:15 PM", text: "15 min — head to the gangway", opacity: 1.0)
                 }
-                .padding(.top, SSSpacing.sm)
+                .padding(.top, SSSpacing.xs)
             }
 
             Spacer()
@@ -42,14 +59,18 @@ struct OnboardingNotificationsView: View {
 
             VStack(spacing: SSSpacing.md) {
                 SSButton(title: "Turn on notifications", icon: "bell") {
-                    // Placeholder: would request UNUserNotificationCenter permission
                     viewModel.data.notificationsGranted = true
                     viewModel.next()
                 }
 
-                SSButton(title: "Not now", style: .ghost) {
+                Button {
                     viewModel.next()
+                } label: {
+                    Text("Not now")
+                        .font(.ssBodyMedium)
+                        .foregroundStyle(Color.white.opacity(0.4))
                 }
+                .buttonStyle(.plain)
             }
             .padding(.bottom, SSSpacing.xxl)
         }
@@ -61,15 +82,19 @@ struct OnboardingNotificationsView: View {
 private struct NotificationPreview: View {
     let time: String
     let text: String
+    var opacity: Double = 1.0
 
     var body: some View {
         HStack(spacing: SSSpacing.sm) {
-            Image(systemName: "ferry.fill")
-                .font(.caption)
-                .foregroundStyle(Color.ssCoral)
-                .frame(width: 24, height: 24)
-                .background(Color.white.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+            // App icon mini
+            ZStack {
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(Color.ssCoral.opacity(0.15))
+                    .frame(width: 28, height: 28)
+                Image(systemName: "ferry.fill")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(Color.ssCoral)
+            }
 
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
@@ -87,8 +112,13 @@ private struct NotificationPreview: View {
                     .foregroundStyle(Color.ssTextOnDark)
             }
         }
-        .padding(SSSpacing.sm)
-        .background(Color.white.opacity(0.08))
+        .padding(10)
+        .background(Color.ssGlassLight)
         .clipShape(RoundedRectangle(cornerRadius: SSRadius.md))
+        .overlay {
+            RoundedRectangle(cornerRadius: SSRadius.md)
+                .stroke(Color.ssGlassBorder, lineWidth: 1)
+        }
+        .opacity(opacity)
     }
 }

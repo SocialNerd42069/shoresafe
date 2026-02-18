@@ -11,7 +11,7 @@ struct ActiveTimerView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Ship time badge
+                // Top badges
                 HStack {
                     SSBadge(text: "SHIP TIME", color: .ssSea)
                     Spacer()
@@ -30,8 +30,8 @@ struct ActiveTimerView: View {
                 // Main countdown
                 VStack(spacing: SSSpacing.sm) {
                     Text("BE BACK BY")
-                        .font(.ssCaption)
-                        .foregroundStyle(.white.opacity(0.6))
+                        .font(.ssOverline)
+                        .foregroundStyle(.white.opacity(0.5))
                         .tracking(2)
 
                     if let timer = timerVM.activeTimer {
@@ -50,7 +50,7 @@ struct ActiveTimerView: View {
 
                     Text("remaining")
                         .font(.ssBodySmall)
-                        .foregroundStyle(.white.opacity(0.5))
+                        .foregroundStyle(.white.opacity(0.4))
                 }
 
                 Spacer()
@@ -67,13 +67,22 @@ struct ActiveTimerView: View {
 
                 // Bottom actions
                 VStack(spacing: SSSpacing.md) {
-                    SSButton(title: "Edit Buffer", style: .outline, icon: "slider.horizontal.3") {
+                    SSButton(title: "Edit Buffer", style: .glass, icon: "slider.horizontal.3") {
                         // Placeholder
                     }
 
-                    SSButton(title: "End Timer", style: .ghost, icon: "xmark") {
+                    Button {
                         showEndConfirmation = true
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 14, weight: .medium))
+                            Text("End Timer")
+                                .font(.ssBodyMedium)
+                        }
+                        .foregroundStyle(.white.opacity(0.4))
                     }
+                    .buttonStyle(.plain)
                 }
                 .padding(.horizontal, SSSpacing.screenHorizontal)
                 .padding(.bottom, SSSpacing.xxl)
@@ -98,55 +107,62 @@ struct ActiveTimerView: View {
     @ViewBuilder
     private var backgroundGradient: some View {
         if timerVM.isCritical {
-            LinearGradient(
-                colors: [Color.ssDanger, Color.ssDanger.opacity(0.8)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            LinearGradient.ssCriticalGradient
         } else if timerVM.isUrgent {
-            LinearGradient(
-                colors: [Color.ssWarning.opacity(0.9), Color.ssCoral],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            LinearGradient.ssUrgentGradient
         } else {
-            LinearGradient.ssNavyGradient
+            LinearGradient.ssOceanGradient
         }
     }
 
     // MARK: - Timer Details
 
     private func timerDetails(_ timer: PortTimer) -> some View {
-        HStack(spacing: SSSpacing.xl) {
+        HStack(spacing: 0) {
             VStack(spacing: SSSpacing.xs) {
                 Text("ALL ABOARD")
-                    .font(.ssCaptionSmall)
-                    .foregroundStyle(.white.opacity(0.5))
+                    .font(.ssOverline)
+                    .foregroundStyle(.white.opacity(0.4))
+                    .tracking(1)
                 Text(timer.allAboardTime.formatted(date: .omitted, time: .shortened))
                     .font(.ssSubheadline)
                     .foregroundStyle(.white)
             }
+            .frame(maxWidth: .infinity)
 
             if timer.mode == .tender, let lastTender = timer.lastTenderBack {
+                RoundedRectangle(cornerRadius: 1)
+                    .fill(Color.white.opacity(0.1))
+                    .frame(width: 1, height: 36)
+
                 VStack(spacing: SSSpacing.xs) {
                     Text("LAST TENDER")
-                        .font(.ssCaptionSmall)
-                        .foregroundStyle(.white.opacity(0.5))
+                        .font(.ssOverline)
+                        .foregroundStyle(.white.opacity(0.4))
+                        .tracking(1)
                     Text(lastTender.formatted(date: .omitted, time: .shortened))
                         .font(.ssSubheadline)
                         .foregroundStyle(.white)
                 }
+                .frame(maxWidth: .infinity)
             }
+
+            RoundedRectangle(cornerRadius: 1)
+                .fill(Color.white.opacity(0.1))
+                .frame(width: 1, height: 36)
 
             VStack(spacing: SSSpacing.xs) {
                 Text("BUFFER")
-                    .font(.ssCaptionSmall)
-                    .foregroundStyle(.white.opacity(0.5))
+                    .font(.ssOverline)
+                    .foregroundStyle(.white.opacity(0.4))
+                    .tracking(1)
                 Text("\(timer.bufferMinutes) min")
                     .font(.ssSubheadline)
                     .foregroundStyle(.white)
             }
+            .frame(maxWidth: .infinity)
         }
+        .padding(.horizontal, SSSpacing.screenHorizontal)
     }
 
     // MARK: - Alert Schedule
@@ -154,20 +170,20 @@ struct ActiveTimerView: View {
     private var alertScheduleSection: some View {
         VStack(spacing: SSSpacing.sm) {
             Text("ALERT SCHEDULE")
-                .font(.ssCaptionSmall)
-                .foregroundStyle(.white.opacity(0.4))
+                .font(.ssOverline)
+                .foregroundStyle(.white.opacity(0.3))
                 .tracking(1.5)
 
             if let timer = timerVM.activeTimer {
                 HStack(spacing: SSSpacing.sm) {
                     ForEach(timer.alertSchedule.prefix(5)) { alert in
-                        VStack(spacing: 2) {
+                        VStack(spacing: 4) {
                             Image(systemName: alert.minutesBefore == 0 ? "bell.and.waves.left.and.right" : "bell")
-                                .font(.caption2)
+                                .font(.system(size: 12, weight: .medium))
                             Text(alert.minutesBefore == 0 ? "Now" : "\(alert.minutesBefore)m")
                                 .font(.ssCaptionSmall)
                         }
-                        .foregroundStyle(.white.opacity(0.6))
+                        .foregroundStyle(.white.opacity(0.5))
                         .frame(maxWidth: .infinity)
                     }
                 }

@@ -6,10 +6,11 @@ struct SSButton: View {
     let title: String
     var style: Style = .coral
     var icon: String? = nil
+    var isCompact: Bool = false
     let action: () -> Void
 
     enum Style {
-        case coral, navy, outline, ghost
+        case coral, navy, outline, ghost, glass
     }
 
     var body: some View {
@@ -17,22 +18,26 @@ struct SSButton: View {
             HStack(spacing: SSSpacing.sm) {
                 if let icon {
                     Image(systemName: icon)
-                        .font(.ssBodyMedium)
+                        .font(.system(size: isCompact ? 14 : 16, weight: .semibold))
                 }
                 Text(title)
-                    .font(.ssSubheadline)
+                    .font(isCompact ? .ssChip : .ssSubheadline)
                     .fontWeight(.semibold)
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
+            .padding(.vertical, isCompact ? 12 : 16)
             .padding(.horizontal, SSSpacing.lg)
             .foregroundStyle(foregroundColor)
             .background(background)
-            .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
+            .clipShape(RoundedRectangle(cornerRadius: isCompact ? SSRadius.md : SSRadius.xl))
             .overlay {
                 if style == .outline {
-                    RoundedRectangle(cornerRadius: SSRadius.lg)
-                        .stroke(Color.ssCoral, lineWidth: 1.5)
+                    RoundedRectangle(cornerRadius: isCompact ? SSRadius.md : SSRadius.xl)
+                        .stroke(Color.ssCoral.opacity(0.6), lineWidth: 1.5)
+                }
+                if style == .glass {
+                    RoundedRectangle(cornerRadius: isCompact ? SSRadius.md : SSRadius.xl)
+                        .stroke(Color.ssGlassBorder, lineWidth: 1)
                 }
             }
         }
@@ -44,6 +49,7 @@ struct SSButton: View {
         case .coral, .navy: .white
         case .outline: .ssCoral
         case .ghost: .ssTextSecondary
+        case .glass: .white
         }
     }
 
@@ -53,6 +59,7 @@ struct SSButton: View {
         case .coral: LinearGradient.ssCoralGradient
         case .navy: LinearGradient.ssNavyGradient
         case .outline, .ghost: Color.clear
+        case .glass: Color.ssGlass
         }
     }
 }
@@ -68,7 +75,7 @@ struct SSChip: View {
         HStack(spacing: SSSpacing.xs) {
             if let icon {
                 Image(systemName: icon)
-                    .font(.ssCaptionSmall)
+                    .font(.system(size: 11, weight: .semibold))
             }
             Text(label)
                 .font(.ssChip)
@@ -80,7 +87,7 @@ struct SSChip: View {
         .clipShape(Capsule())
         .overlay {
             if !isSelected {
-                Capsule().stroke(Color.ssNavy.opacity(0.15), lineWidth: 1)
+                Capsule().stroke(Color.ssNavy.opacity(0.12), lineWidth: 1)
             }
         }
     }
@@ -96,23 +103,41 @@ struct SSCard<Content: View>: View {
         content()
             .padding(padding)
             .background(Color.ssCard)
-            .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
-            .shadow(color: SSShadow.card, radius: 8, x: 0, y: 2)
+            .clipShape(RoundedRectangle(cornerRadius: SSRadius.xl))
+            .shadow(color: SSShadow.card, radius: 12, x: 0, y: 4)
     }
 }
 
-// MARK: - Progress Dots
+// MARK: - Glass Card (for dark backgrounds)
 
-struct SSProgressDots: View {
+struct SSGlassCard<Content: View>: View {
+    var padding: CGFloat = SSSpacing.cardPadding
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        content()
+            .padding(padding)
+            .background(Color.ssGlassLight)
+            .clipShape(RoundedRectangle(cornerRadius: SSRadius.xl))
+            .overlay {
+                RoundedRectangle(cornerRadius: SSRadius.xl)
+                    .stroke(Color.ssGlassBorder, lineWidth: 1)
+            }
+    }
+}
+
+// MARK: - Progress Indicator (segmented bar)
+
+struct SSProgressBar: View {
     let total: Int
     let current: Int
 
     var body: some View {
-        HStack(spacing: SSSpacing.sm) {
+        HStack(spacing: 4) {
             ForEach(0..<total, id: \.self) { index in
                 Capsule()
-                    .fill(index == current ? Color.ssCoral : Color.white.opacity(0.3))
-                    .frame(width: index == current ? 24 : 8, height: 8)
+                    .fill(index <= current ? Color.ssCoral : Color.white.opacity(0.15))
+                    .frame(height: 3)
                     .animation(.spring(response: 0.35), value: current)
             }
         }
@@ -130,7 +155,7 @@ struct SSBadge: View {
             .font(.ssCaption)
             .foregroundStyle(.white)
             .padding(.horizontal, 10)
-            .padding(.vertical, 4)
+            .padding(.vertical, 5)
             .background(color)
             .clipShape(Capsule())
     }
@@ -170,16 +195,61 @@ struct SSOnboardingPage<Content: View>: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            SSProgressDots(total: totalSteps, current: step)
+            SSProgressBar(total: totalSteps, current: step)
+                .padding(.horizontal, SSSpacing.screenHorizontal)
                 .padding(.top, SSSpacing.md)
-                .padding(.bottom, SSSpacing.xl)
+                .padding(.bottom, SSSpacing.lg)
 
             content()
 
-            Spacer()
+            Spacer(minLength: 0)
         }
         .padding(.horizontal, SSSpacing.screenHorizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(LinearGradient.ssOnboardingBG)
+    }
+}
+
+// MARK: - Onboarding Navigation Bar
+
+struct SSOnboardingNav: View {
+    let backLabel: String
+    let nextLabel: String
+    var nextIcon: String? = "arrow.right"
+    let onBack: () -> Void
+    let onNext: () -> Void
+
+    var body: some View {
+        HStack(spacing: SSSpacing.md) {
+            Button(action: onBack) {
+                HStack(spacing: 4) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 14, weight: .medium))
+                    Text(backLabel)
+                        .font(.ssBodyMedium)
+                }
+                .foregroundStyle(Color.white.opacity(0.5))
+            }
+            .buttonStyle(.plain)
+
+            Spacer()
+
+            SSButton(title: nextLabel, icon: nextIcon, isCompact: true) {
+                onNext()
+            }
+            .frame(maxWidth: 200)
+        }
+        .padding(.bottom, SSSpacing.xxl)
+    }
+}
+
+// MARK: - Progress Dots (legacy compat)
+
+struct SSProgressDots: View {
+    let total: Int
+    let current: Int
+
+    var body: some View {
+        SSProgressBar(total: total, current: current)
     }
 }

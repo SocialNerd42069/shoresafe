@@ -12,15 +12,29 @@ struct PaywallView: View {
                 VStack(spacing: SSSpacing.lg) {
                     // Hero
                     VStack(spacing: SSSpacing.md) {
-                        Image(systemName: "sun.and.horizon.fill")
-                            .font(.system(size: 48))
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [.ssCoral, .ssSunrise],
-                                    startPoint: .bottomLeading,
-                                    endPoint: .topTrailing
+                        ZStack {
+                            Circle()
+                                .fill(
+                                    RadialGradient(
+                                        colors: [Color.ssCoral.opacity(0.2), Color.clear],
+                                        center: .center,
+                                        startRadius: 10,
+                                        endRadius: 70
+                                    )
                                 )
-                            )
+                                .frame(width: 120, height: 120)
+                                .blur(radius: 10)
+
+                            Image(systemName: "sun.and.horizon.fill")
+                                .font(.system(size: 44, weight: .medium))
+                                .foregroundStyle(
+                                    LinearGradient(
+                                        colors: [.ssCoral, .ssSunrise],
+                                        startPoint: .bottomLeading,
+                                        endPoint: .topTrailing
+                                    )
+                                )
+                        }
 
                         Text("Unlock ShoreSafe")
                             .font(.ssDisplayMedium)
@@ -30,8 +44,9 @@ struct PaywallView: View {
                             .font(.ssBody)
                             .foregroundStyle(Color.ssTextSecondary)
                             .multilineTextAlignment(.center)
+                            .lineSpacing(2)
                     }
-                    .padding(.top, SSSpacing.lg)
+                    .padding(.top, SSSpacing.xl)
 
                     // Tier cards
                     VStack(spacing: SSSpacing.md) {
@@ -71,22 +86,21 @@ struct PaywallView: View {
                         ValuePropRow(icon: "wifi.slash", text: "Works without Wi-Fi or data")
                         ValuePropRow(icon: "clock.badge.checkmark", text: "Ship-time clarity built in")
                         ValuePropRow(icon: "ferry", text: "Tender-port buffer mode")
-                        ValuePropRow(icon: "bell.badge", text: "Escalating alerts so you're never caught off guard")
+                        ValuePropRow(icon: "bell.badge", text: "Escalating alerts you control")
                     }
-                    .padding(.vertical, SSSpacing.md)
+                    .padding(.vertical, SSSpacing.sm)
 
                     // Purchase button
                     SSButton(
-                        title: selectedTier == .solo ? "Get Solo Pass — $4.99" : "Get Crew Pass — $10.99",
+                        title: selectedTier == .solo ? "Get Solo Pass \u{2014} $4.99" : "Get Crew Pass \u{2014} $10.99",
                         icon: "lock.open"
                     ) {
-                        // StoreKit placeholder
                         onPurchase(selectedTier)
                     }
 
                     // Restore
                     Button {
-                        // Placeholder: restore purchases
+                        // Placeholder
                     } label: {
                         Text("Restore purchase")
                             .font(.ssBodySmall)
@@ -107,7 +121,8 @@ struct PaywallView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundStyle(Color.ssTextMuted)
+                            .font(.system(size: 24))
+                            .foregroundStyle(Color.ssTextMuted.opacity(0.5))
                     }
                 }
             }
@@ -132,10 +147,9 @@ private struct TierCard: View {
                     VStack(alignment: .leading, spacing: SSSpacing.xs) {
                         if isBestValue {
                             Text("BEST VALUE")
-                                .font(.ssCaptionSmall)
-                                .fontWeight(.bold)
+                                .font(.ssOverline)
                                 .foregroundStyle(Color.ssCoral)
-                                .tracking(1)
+                                .tracking(1.5)
                         }
                         Text(title)
                             .font(.ssHeadline)
@@ -149,12 +163,14 @@ private struct TierCard: View {
                         .foregroundStyle(isSelected ? Color.ssCoral : Color.ssTextPrimary)
                 }
 
-                Divider()
+                Rectangle()
+                    .fill(Color.ssNavy.opacity(0.06))
+                    .frame(height: 1)
 
                 ForEach(features, id: \.self) { feature in
                     HStack(spacing: SSSpacing.sm) {
                         Image(systemName: "checkmark")
-                            .font(.caption)
+                            .font(.system(size: 12, weight: .bold))
                             .foregroundStyle(Color.ssSuccess)
                         Text(feature)
                             .font(.ssBody)
@@ -164,15 +180,15 @@ private struct TierCard: View {
             }
             .padding(SSSpacing.cardPadding)
             .background(Color.ssCard)
-            .clipShape(RoundedRectangle(cornerRadius: SSRadius.lg))
+            .clipShape(RoundedRectangle(cornerRadius: SSRadius.xl))
             .overlay {
-                RoundedRectangle(cornerRadius: SSRadius.lg)
+                RoundedRectangle(cornerRadius: SSRadius.xl)
                     .stroke(
-                        isSelected ? Color.ssCoral : Color.clear,
-                        lineWidth: 2
+                        isSelected ? Color.ssCoral : Color.ssNavy.opacity(0.06),
+                        lineWidth: isSelected ? 2 : 1
                     )
             }
-            .shadow(color: SSShadow.card, radius: isSelected ? 12 : 4, x: 0, y: 2)
+            .shadow(color: isSelected ? SSShadow.glow : SSShadow.card, radius: isSelected ? 16 : 8, x: 0, y: 4)
         }
         .buttonStyle(.plain)
     }
@@ -186,10 +202,14 @@ private struct ValuePropRow: View {
 
     var body: some View {
         HStack(spacing: SSSpacing.md) {
-            Image(systemName: icon)
-                .font(.body)
-                .foregroundStyle(Color.ssSea)
-                .frame(width: 28)
+            ZStack {
+                Circle()
+                    .fill(Color.ssSea.opacity(0.1))
+                    .frame(width: 36, height: 36)
+                Image(systemName: icon)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundStyle(Color.ssSea)
+            }
             Text(text)
                 .font(.ssBody)
                 .foregroundStyle(Color.ssTextPrimary)
