@@ -41,44 +41,47 @@ private struct ScreenshotRouterView: View {
     @StateObject private var timerVM = TimerViewModel()
 
     var body: some View {
-        SwiftUI.Group {
-            switch target.lowercased() {
-            case "hook":
-                OnboardingHookView(viewModel: onboardingVM)
-            case "date":
-                OnboardingDateView(viewModel: onboardingVM)
-            case "line":
-                OnboardingCruiseLineView(viewModel: onboardingVM)
-            case "shiptime":
-                OnboardingShipTimeView(viewModel: onboardingVM)
-            case "buffer":
-                OnboardingBufferView(viewModel: onboardingVM)
-            case "warnings":
-                OnboardingWarningsView(viewModel: onboardingVM)
-            case "notifications":
-                OnboardingNotificationsView(viewModel: onboardingVM)
-            case "summary":
-                OnboardingSummaryView(viewModel: onboardingVM, onComplete: {})
-            case "paywall":
-                PaywallView(isPresented: .constant(true))
-            case "home":
-                HomeView(timerVM: timerVM)
-            case "create":
-                CreateTimerView(timerVM: timerVM)
-            case "active":
-                ActiveTimerView(timerVM: timerVM)
-            case "crew":
-                CrewInvitesView()
-            default:
-                VStack(spacing: 12) {
-                    Text("Unknown SS_SCREENSHOT target")
-                        .font(.headline)
-                    Text(target)
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
-                .padding()
+        screenshotView
+    }
+
+    @ViewBuilder
+    private var screenshotView: some View {
+        switch target.lowercased() {
+        case "hook":
+            OnboardingHookView(viewModel: onboardingVM)
+        case "date":
+            OnboardingDateView(viewModel: onboardingVM)
+        case "line":
+            OnboardingCruiseLineView(viewModel: onboardingVM)
+        case "shiptime":
+            OnboardingShipTimeView(viewModel: onboardingVM)
+        case "buffer":
+            OnboardingBufferView(viewModel: onboardingVM)
+        case "warnings":
+            OnboardingWarningsView(viewModel: onboardingVM)
+        case "notifications":
+            OnboardingNotificationsView(viewModel: onboardingVM)
+        case "summary":
+            OnboardingSummaryView(viewModel: onboardingVM, onComplete: {})
+        case "paywall":
+            PaywallView(isPresented: .constant(true))
+        case "home":
+            HomeView(timerVM: timerVM)
+        case "create":
+            CreateTimerView(timerVM: timerVM)
+        case "active":
+            ActiveTimerView(timerVM: timerVM)
+        case "crew":
+            CrewInvitesView()
+        default:
+            VStack(spacing: 12) {
+                Text("Unknown SS_SCREENSHOT target")
+                    .font(.headline)
+                Text(target)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
             }
+            .padding()
         }
     }
 }
