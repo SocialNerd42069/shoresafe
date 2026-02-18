@@ -41,7 +41,7 @@ private struct ScreenshotRouterView: View {
     @StateObject private var timerVM = TimerViewModel()
 
     var body: some View {
-        Group {
+        SwiftUI.Group {
             switch target.lowercased() {
             case "hook":
                 OnboardingHookView(viewModel: onboardingVM)
