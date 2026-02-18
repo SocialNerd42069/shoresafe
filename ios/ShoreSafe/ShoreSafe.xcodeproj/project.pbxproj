@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FF42C349396ECE7F2CE3709 /* sunset-deck-hero.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D057B485C9D2128C3643DE4 /* sunset-deck-hero.png */; };
 		152E3E54120E8EA0C54EEE50 /* OnboardingBufferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05098ECB473FB3E57E88C1C9 /* OnboardingBufferView.swift */; };
 		1FC4CF4CCFB04AC71EB1A68F /* CrewInvitesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C698B6D085AEB8534FE7690 /* CrewInvitesView.swift */; };
 		3268EAE8F722015AAB5C28E7 /* SSTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ABEB3E81AE0806C4D04420 /* SSTheme.swift */; };
+		383D81FF9F33473B4282263C /* cruise-control-hero.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C032904AB042E82D61454C9 /* cruise-control-hero.png */; };
 		392EFAA463293DD9DE9C9C00 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F707B3E54D754604485E9055 /* HomeView.swift */; };
 		3C4022B3393E169BE671650B /* OnboardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFFE6B8FC02253110D0014C /* OnboardingContainerView.swift */; };
 		4FB853DCB86F0FDD114D0C61 /* TimerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE42F577909FC84234C85B7 /* TimerModels.swift */; };
@@ -20,6 +22,7 @@
 		8350334020417A8D6C65A322 /* ActiveTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF5E58EE9BD4752E5938985 /* ActiveTimerView.swift */; };
 		896D35FC841BFB83E0CA0926 /* ThemedActiveTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A78C273967692837C3A6AD /* ThemedActiveTimerView.swift */; };
 		8A4A3065C0397AA7B46B5880 /* OnboardingDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B64B23E48E7B8AB14DA25E /* OnboardingDateView.swift */; };
+		8DD773F243FB5249927BD935 /* nautical-modern-hero.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FE7CC89EE2D1B75DE174764 /* nautical-modern-hero.png */; };
 		92EF2B4D6CB58EFF12368ADA /* ShoreSafeSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD70E42009268ED267D430 /* ShoreSafeSpacing.swift */; };
 		941BC300F8E3606FAF282AE1 /* OnboardingHookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A987BD7B2C7046430B27B5C /* OnboardingHookView.swift */; };
 		9C97D8EA55F53490157ECFF4 /* OnboardingCruiseLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299980EE3F4EFCB0EB0D5F0A /* OnboardingCruiseLineView.swift */; };
@@ -43,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		05098ECB473FB3E57E88C1C9 /* OnboardingBufferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBufferView.swift; sourceTree = "<group>"; };
+		0D057B485C9D2128C3643DE4 /* sunset-deck-hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunset-deck-hero.png"; sourceTree = "<group>"; };
 		0FE42F577909FC84234C85B7 /* TimerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModels.swift; sourceTree = "<group>"; };
 		14978ED4131560CB369539CA /* TripSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSetupViewModel.swift; sourceTree = "<group>"; };
 		1926E71A7C1E71B085E39DC9 /* SSComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSComponents.swift; sourceTree = "<group>"; };
@@ -50,6 +54,7 @@
 		1A16F3198C0C06FAE14E8FC5 /* OnboardingTripInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTripInfoView.swift; sourceTree = "<group>"; };
 		218C8D971A3F12C2443BCA37 /* TripStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripStore.swift; sourceTree = "<group>"; };
 		299980EE3F4EFCB0EB0D5F0A /* OnboardingCruiseLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCruiseLineView.swift; sourceTree = "<group>"; };
+		2FE7CC89EE2D1B75DE174764 /* nautical-modern-hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nautical-modern-hero.png"; sourceTree = "<group>"; };
 		3632F454AEE2DA63460DE258 /* TripModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripModels.swift; sourceTree = "<group>"; };
 		3CCB818A20D894DD3194E0C9 /* ShoreSafeTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoreSafeTypography.swift; sourceTree = "<group>"; };
 		3D451C7B45EE6657C21A4A71 /* ThemedHookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedHookView.swift; sourceTree = "<group>"; };
@@ -58,6 +63,7 @@
 		58B64B23E48E7B8AB14DA25E /* OnboardingDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDateView.swift; sourceTree = "<group>"; };
 		5A987BD7B2C7046430B27B5C /* OnboardingHookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHookView.swift; sourceTree = "<group>"; };
 		5B605A30E78CE514C98EB1F7 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		5C032904AB042E82D61454C9 /* cruise-control-hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cruise-control-hero.png"; sourceTree = "<group>"; };
 		64F7A0ABC3E7A81D2A28EA98 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		785221EAF1737A6A8ED03739 /* OnboardingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModels.swift; sourceTree = "<group>"; };
 		93AD70E42009268ED267D430 /* ShoreSafeSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoreSafeSpacing.swift; sourceTree = "<group>"; };
@@ -126,6 +132,7 @@
 				6F0148373EA55D33B83B6BFF /* App */,
 				D67DBD78394294EDA3489BB0 /* DesignSystem */,
 				AFB8A363DA750CDDD8F51587 /* Models */,
+				D30CE025934800DC36603FA9 /* Resources */,
 				0FD9C857912FD943DAC662FD /* ViewModels */,
 				39CAAB85852CEB5D6758FB84 /* Views */,
 			);
@@ -159,6 +166,16 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		A49A5F7FCEAD11C4FD599EC4 /* HeroImages */ = {
+			isa = PBXGroup;
+			children = (
+				5C032904AB042E82D61454C9 /* cruise-control-hero.png */,
+				2FE7CC89EE2D1B75DE174764 /* nautical-modern-hero.png */,
+				0D057B485C9D2128C3643DE4 /* sunset-deck-hero.png */,
+			);
+			path = HeroImages;
+			sourceTree = "<group>";
+		};
 		AFB8A363DA750CDDD8F51587 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +200,14 @@
 				C04E588DB2DE340652939D62 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		D30CE025934800DC36603FA9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A49A5F7FCEAD11C4FD599EC4 /* HeroImages */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D67DBD78394294EDA3489BB0 /* DesignSystem */ = {
@@ -221,6 +246,7 @@
 			buildConfigurationList = 42FED6F217ED66183EBCEBF0 /* Build configuration list for PBXNativeTarget "ShoreSafe" */;
 			buildPhases = (
 				C4837B1F7748C0D0B470114E /* Sources */,
+				053CB1479F1A25D0B74ADB6B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -260,6 +286,19 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		053CB1479F1A25D0B74ADB6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				383D81FF9F33473B4282263C /* cruise-control-hero.png in Resources */,
+				8DD773F243FB5249927BD935 /* nautical-modern-hero.png in Resources */,
+				0FF42C349396ECE7F2CE3709 /* sunset-deck-hero.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4837B1F7748C0D0B470114E /* Sources */ = {

@@ -11,6 +11,9 @@ targets:
     platform: iOS
     sources:
       - path: ShoreSafe
+    resources:
+      - path: ShoreSafe/Resources/HeroImages
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.shoresafe.app

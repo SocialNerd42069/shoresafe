@@ -134,20 +134,68 @@ struct ThemedActiveTimerView: View {
         }
     }
 
+    @ViewBuilder
     private var backgroundForState: some View {
-        Rectangle().fill(activeBackground)
+        if theme.timerUsesImageBackground,
+           let imageName = theme.heroImageName,
+           let uiImage = UIImage(named: imageName),
+           !timerVM.isUrgent {
+            ZStack {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped()
+
+                Rectangle()
+                    .fill(Color.black.opacity(theme.timerOverlayOpacity))
+
+                // Extra bottom gradient for timer details readability
+                LinearGradient(
+                    colors: [
+                        Color.black.opacity(0.0),
+                        Color.black.opacity(theme.timerOverlayOpacity * 0.5)
+                    ],
+                    startPoint: .center,
+                    endPoint: .bottom
+                )
+            }
+        } else {
+            Rectangle().fill(activeBackground)
+        }
     }
 
     // MARK: - Badge
 
     private func themedBadge(text: String, color: Color) -> some View {
-        Text(text)
-            .font(.ssCaption)
-            .foregroundStyle(theme.colorScheme == .dark ? .white : .white)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
-            .background(color)
-            .clipShape(Capsule())
+        Group {
+            switch theme.timerBadgeStyle {
+            case .capsule:
+                Text(text)
+                    .font(.ssCaption)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(color)
+                    .clipShape(Capsule())
+            case .rounded:
+                Text(text)
+                    .font(.ssCaption)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(color)
+                    .clipShape(RoundedRectangle(cornerRadius: SSRadius.sm))
+            case .tag:
+                Text(text)
+                    .font(.ssCaption)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(color)
+                    .clipShape(RoundedRectangle(cornerRadius: SSRadius.sm))
+            }
+        }
     }
 
     // MARK: - Timer Details

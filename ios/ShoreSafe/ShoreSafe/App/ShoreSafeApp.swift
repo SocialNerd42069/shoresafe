@@ -47,7 +47,17 @@ private struct ScreenshotRouterView: View {
 
     private var themeID: SSThemeID? {
         guard let raw = ProcessInfo.processInfo.environment["SS_THEME"] else { return nil }
-        return SSThemeID(rawValue: raw.lowercased())
+        let key = raw.lowercased()
+        // Support both old names and new vibe names
+        switch key {
+        case "sunset":   return .sunset
+        case "utility":  return .utility
+        case "nautical": return .nautical
+        case "poster":   return .poster
+        case "beach":    return .beach
+        case "disney":   return .disney
+        default:         return SSThemeID(rawValue: key)
+        }
     }
 
     init(target: String) {
