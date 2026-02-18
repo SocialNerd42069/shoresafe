@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct OnboardingContainerView: View {
-    @StateObject private var viewModel = OnboardingViewModel()
+    @StateObject private var viewModel = TripSetupViewModel()
     @Binding var isOnboardingComplete: Bool
+    @EnvironmentObject var tripStore: TripStore
 
     var body: some View {
         ZStack {
@@ -12,22 +13,22 @@ struct OnboardingContainerView: View {
             TabView(selection: $viewModel.currentStep) {
                 OnboardingHookView(viewModel: viewModel)
                     .tag(0)
-                OnboardingShipTimeView(viewModel: viewModel)
+                OnboardingTripInfoView(viewModel: viewModel)
                     .tag(1)
-                OnboardingDateView(viewModel: viewModel)
+                OnboardingShipTimeView(viewModel: viewModel)
                     .tag(2)
-                OnboardingCruiseLineView(viewModel: viewModel)
+                OnboardingPortsView(viewModel: viewModel)
                     .tag(3)
                 OnboardingBufferView(viewModel: viewModel)
                     .tag(4)
-                OnboardingWarningsView(viewModel: viewModel)
-                    .tag(5)
                 OnboardingNotificationsView(viewModel: viewModel)
-                    .tag(6)
+                    .tag(5)
                 OnboardingSummaryView(viewModel: viewModel, onComplete: {
+                    let trip = viewModel.buildTrip()
+                    tripStore.save(trip)
                     isOnboardingComplete = true
                 })
-                    .tag(7)
+                    .tag(6)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.spring(response: 0.45), value: viewModel.currentStep)

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct OnboardingHookView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @ObservedObject var viewModel: TripSetupViewModel
 
     @State private var showTitle = false
     @State private var showSubtitle = false
@@ -12,9 +12,8 @@ struct OnboardingHookView: View {
             Spacer()
 
             VStack(spacing: SSSpacing.xl) {
-                // Hero — glowing ship icon
+                // Hero icon
                 ZStack {
-                    // Ambient glow
                     Circle()
                         .fill(
                             RadialGradient(
@@ -27,7 +26,6 @@ struct OnboardingHookView: View {
                         .frame(width: 200, height: 200)
                         .blur(radius: 20)
 
-                    // Icon ring
                     Circle()
                         .fill(Color.ssGlassLight)
                         .frame(width: 130, height: 130)
@@ -61,7 +59,7 @@ struct OnboardingHookView: View {
                         .opacity(showTitle ? 1 : 0)
                         .offset(y: showTitle ? 0 : 16)
 
-                    Text("Ship time drifts from local time at every port.\nShoreSafe keeps you synced so you always\nmake it back.")
+                    Text("Set up your cruise in 60 seconds.\nShoreSafe tracks every port day so you\nalways make it back on time.")
                         .ssOnboardingBody()
                         .multilineTextAlignment(.center)
                         .lineSpacing(3)
@@ -73,7 +71,7 @@ struct OnboardingHookView: View {
             Spacer()
             Spacer()
 
-            SSButton(title: "Get started", icon: "arrow.right") {
+            SSButton(title: "Set up my cruise", icon: "arrow.right") {
                 viewModel.next()
             }
             .opacity(showButton ? 1 : 0)

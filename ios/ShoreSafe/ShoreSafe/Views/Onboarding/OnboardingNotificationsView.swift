@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct OnboardingNotificationsView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @ObservedObject var viewModel: TripSetupViewModel
 
     var body: some View {
-        SSOnboardingPage(step: 6, totalSteps: viewModel.totalSteps) {
+        SSOnboardingPage(step: 5, totalSteps: viewModel.totalSteps) {
             Spacer()
 
             VStack(spacing: SSSpacing.lg) {
@@ -59,7 +59,7 @@ struct OnboardingNotificationsView: View {
 
             VStack(spacing: SSSpacing.md) {
                 SSButton(title: "Turn on notifications", icon: "bell") {
-                    viewModel.data.notificationsGranted = true
+                    viewModel.notificationsGranted = true
                     viewModel.next()
                 }
 
@@ -86,7 +86,6 @@ private struct NotificationPreview: View {
 
     var body: some View {
         HStack(spacing: SSSpacing.sm) {
-            // App icon mini
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Color.ssCoral.opacity(0.15))

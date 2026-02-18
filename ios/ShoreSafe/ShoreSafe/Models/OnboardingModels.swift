@@ -1,16 +1,5 @@
 import Foundation
 
-// MARK: - Onboarding Data
-
-struct OnboardingData {
-    var cruiseDate: Date = .now
-    var cruiseLine: String? = nil
-    var shipName: String? = nil
-    var bufferPersona: BufferPersona = .balanced
-    var warningIntervals: Set<Int> = [90, 60, 30, 15, 5]
-    var notificationsGranted: Bool = false
-}
-
 // MARK: - Buffer Persona
 
 enum BufferPersona: String, CaseIterable, Identifiable {

@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct OnboardingSummaryView: View {
-    @ObservedObject var viewModel: OnboardingViewModel
+    @ObservedObject var viewModel: TripSetupViewModel
     let onComplete: () -> Void
 
     var body: some View {
-        SSOnboardingPage(step: 7, totalSteps: viewModel.totalSteps) {
+        SSOnboardingPage(step: 6, totalSteps: viewModel.totalSteps) {
             Spacer()
 
             VStack(spacing: SSSpacing.lg) {
@@ -39,7 +39,7 @@ struct OnboardingSummaryView: View {
                 Text("Ready to sail")
                     .ssOnboardingTitle()
 
-                Text("Here's your setup. You can tweak\neverything in settings later.")
+                Text("Here's your trip setup.\nYou can change everything later.")
                     .ssOnboardingBody()
                     .multilineTextAlignment(.center)
                     .lineSpacing(3)
@@ -49,37 +49,61 @@ struct OnboardingSummaryView: View {
 
             // Summary card
             SSGlassCard(padding: SSSpacing.md) {
-                VStack(spacing: SSSpacing.md) {
-                    SummaryRow(
-                        icon: "calendar",
-                        label: "Cruise date",
-                        value: viewModel.data.cruiseDate.formatted(date: .abbreviated, time: .omitted)
-                    )
-
-                    if let line = viewModel.data.cruiseLine {
-                        Divider().background(Color.white.opacity(0.1))
-                        SummaryRow(icon: "ferry", label: "Cruise line", value: line)
+                VStack(spacing: SSSpacing.sm) {
+                    if !viewModel.tripName.isEmpty {
+                        SummaryRow(icon: "globe.americas", label: "Trip", value: viewModel.tripName)
+                        SummaryDivider()
                     }
 
-                    Divider().background(Color.white.opacity(0.1))
+                    if let line = viewModel.cruiseLine {
+                        SummaryRow(icon: "ferry", label: "Cruise line", value: line)
+                        SummaryDivider()
+                    }
+
+                    SummaryRow(
+                        icon: "clock.badge.exclamationmark",
+                        label: "Ship time",
+                        value: viewModel.offsetHours == 0 ? "Same as local" : (viewModel.offsetHours > 0 ? "+\(viewModel.offsetHours)h" : "\(viewModel.offsetHours)h")
+                    )
+                    SummaryDivider()
+
+                    SummaryRow(
+                        icon: "mappin.and.ellipse",
+                        label: "Ports",
+                        value: viewModel.ports.isEmpty ? "None yet" : "\(viewModel.ports.count) port\(viewModel.ports.count == 1 ? "" : "s")"
+                    )
+
+                    if !viewModel.ports.filter({ !$0.hasRequiredTimes }).isEmpty {
+                        HStack(spacing: SSSpacing.xs) {
+                            Image(systemName: "exclamationmark.circle")
+                                .font(.system(size: 12))
+                            Text("Some ports need times — you can add them from the home screen")
+                                .font(.ssCaptionSmall)
+                        }
+                        .foregroundStyle(Color.ssSunrise.opacity(0.8))
+                        .padding(.top, SSSpacing.xs)
+                    }
+
+                    SummaryDivider()
+
                     SummaryRow(
                         icon: "gauge.with.needle",
                         label: "Buffer style",
-                        value: viewModel.data.bufferPersona.rawValue
+                        value: viewModel.bufferPersona.rawValue
                     )
+                    SummaryDivider()
 
-                    Divider().background(Color.white.opacity(0.1))
                     SummaryRow(
                         icon: "bell.badge",
                         label: "Alerts",
-                        value: "\(viewModel.data.warningIntervals.count + 1) scheduled"
+                        value: "\(viewModel.warningIntervals.count + 1) scheduled"
                     )
+                    SummaryDivider()
 
-                    Divider().background(Color.white.opacity(0.1))
                     SummaryRow(
-                        icon: viewModel.data.notificationsGranted ? "bell.fill" : "bell.slash",
+                        icon: viewModel.notificationsGranted ? "bell.fill" : "bell.slash",
                         label: "Notifications",
-                        value: viewModel.data.notificationsGranted ? "Enabled" : "Off"
+                        value: viewModel.notificationsGranted ? "Enabled" : "Off"
                     )
                 }
             }
@@ -87,7 +111,7 @@ struct OnboardingSummaryView: View {
             Spacer()
 
             VStack(spacing: SSSpacing.md) {
-                SSButton(title: "Plan my first port day", icon: "sun.and.horizon") {
+                SSButton(title: "Start my cruise", icon: "sun.and.horizon") {
                     onComplete()
                 }
 
@@ -119,9 +143,9 @@ private struct SummaryRow: View {
     var body: some View {
         HStack(spacing: SSSpacing.md) {
             Image(systemName: icon)
-                .font(.system(size: 16, weight: .medium))
+                .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(Color.ssCoral)
-                .frame(width: 24)
+                .frame(width: 20)
 
             Text(label)
                 .font(.ssBodySmall)
@@ -131,7 +155,15 @@ private struct SummaryRow: View {
 
             Text(value)
                 .font(.ssBodyMedium)
-                .foregroundStyle(Color.ssTextOnDark)
+                .foregroundStyle(.white)
         }
+    }
+}
+
+private struct SummaryDivider: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.white.opacity(0.06))
+            .frame(height: 1)
     }
 }

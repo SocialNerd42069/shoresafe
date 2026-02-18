@@ -12,6 +12,7 @@
 		392EFAA463293DD9DE9C9C00 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F707B3E54D754604485E9055 /* HomeView.swift */; };
 		3C4022B3393E169BE671650B /* OnboardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFFE6B8FC02253110D0014C /* OnboardingContainerView.swift */; };
 		4FB853DCB86F0FDD114D0C61 /* TimerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE42F577909FC84234C85B7 /* TimerModels.swift */; };
+		57AD8F81351E6D8F55D7A380 /* TripStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218C8D971A3F12C2443BCA37 /* TripStore.swift */; };
 		67CB92BC5D01A83AEDD0E856 /* OnboardingNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308C76FB096F4DFB4E208C1 /* OnboardingNotificationsView.swift */; };
 		7153974CF6BB5CB030C16CAA /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F7A0ABC3E7A81D2A28EA98 /* PaywallView.swift */; };
 		720809E8216146C67964A80E /* OnboardingShipTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FE82B272F7B89383FADF9C /* OnboardingShipTimeView.swift */; };
@@ -20,6 +21,8 @@
 		92EF2B4D6CB58EFF12368ADA /* ShoreSafeSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD70E42009268ED267D430 /* ShoreSafeSpacing.swift */; };
 		941BC300F8E3606FAF282AE1 /* OnboardingHookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A987BD7B2C7046430B27B5C /* OnboardingHookView.swift */; };
 		9C97D8EA55F53490157ECFF4 /* OnboardingCruiseLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299980EE3F4EFCB0EB0D5F0A /* OnboardingCruiseLineView.swift */; };
+		AC89F8018F492673EF542799 /* OnboardingTripInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A16F3198C0C06FAE14E8FC5 /* OnboardingTripInfoView.swift */; };
+		AE0BC4040FBAFDDD0F3DFF9E /* OnboardingPortsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1996C541D6EB2C6D247A9637 /* OnboardingPortsView.swift */; };
 		B3C7B284346AF59CAA680992 /* OnboardingWarningsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D6816903E4D70D62101B93 /* OnboardingWarningsView.swift */; };
 		BA10EF0014900AF090C6B5F0 /* CreateTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C107E3F3F86125E5DD1B1406 /* CreateTimerView.swift */; };
 		CAB0D72B3CDF72060EA1814E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E588DB2DE340652939D62 /* SettingsView.swift */; };
@@ -27,17 +30,24 @@
 		CFF61033F6A96CC5A973DAE5 /* ShoreSafeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0076CCC588F2CB87DFDBFA0 /* ShoreSafeColors.swift */; };
 		D00083F69B2632B83D46AAE3 /* OnboardingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785221EAF1737A6A8ED03739 /* OnboardingModels.swift */; };
 		D035CF2D1ECC8041B1A5E878 /* ShoreSafeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAB58A063F9AB64C5D774DE /* ShoreSafeApp.swift */; };
+		D2A2E0B977C5AA710BA5164E /* TripSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14978ED4131560CB369539CA /* TripSetupViewModel.swift */; };
 		E6B059039A5D0FCB8857C6C7 /* OnboardingSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20FD3CA28C5ED832368576C /* OnboardingSummaryView.swift */; };
 		E7593FBDA8371498CF670AF2 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD87E67F3557338423C3D018 /* TimerViewModel.swift */; };
 		E7D01FDC8F1BB93DC9E524EE /* SSComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1926E71A7C1E71B085E39DC9 /* SSComponents.swift */; };
+		F9F253D90567B4158E7DEF85 /* TripModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3632F454AEE2DA63460DE258 /* TripModels.swift */; };
 		FF4602D6A48BAEB4E1749356 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B605A30E78CE514C98EB1F7 /* OnboardingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		05098ECB473FB3E57E88C1C9 /* OnboardingBufferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBufferView.swift; sourceTree = "<group>"; };
 		0FE42F577909FC84234C85B7 /* TimerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModels.swift; sourceTree = "<group>"; };
+		14978ED4131560CB369539CA /* TripSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSetupViewModel.swift; sourceTree = "<group>"; };
 		1926E71A7C1E71B085E39DC9 /* SSComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSComponents.swift; sourceTree = "<group>"; };
+		1996C541D6EB2C6D247A9637 /* OnboardingPortsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPortsView.swift; sourceTree = "<group>"; };
+		1A16F3198C0C06FAE14E8FC5 /* OnboardingTripInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTripInfoView.swift; sourceTree = "<group>"; };
+		218C8D971A3F12C2443BCA37 /* TripStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripStore.swift; sourceTree = "<group>"; };
 		299980EE3F4EFCB0EB0D5F0A /* OnboardingCruiseLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCruiseLineView.swift; sourceTree = "<group>"; };
+		3632F454AEE2DA63460DE258 /* TripModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripModels.swift; sourceTree = "<group>"; };
 		3CCB818A20D894DD3194E0C9 /* ShoreSafeTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoreSafeTypography.swift; sourceTree = "<group>"; };
 		49D6816903E4D70D62101B93 /* OnboardingWarningsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWarningsView.swift; sourceTree = "<group>"; };
 		4C698B6D085AEB8534FE7690 /* CrewInvitesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewInvitesView.swift; sourceTree = "<group>"; };
@@ -67,6 +77,8 @@
 			children = (
 				5B605A30E78CE514C98EB1F7 /* OnboardingViewModel.swift */,
 				BD87E67F3557338423C3D018 /* TimerViewModel.swift */,
+				14978ED4131560CB369539CA /* TripSetupViewModel.swift */,
+				218C8D971A3F12C2443BCA37 /* TripStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -130,8 +142,10 @@
 				58B64B23E48E7B8AB14DA25E /* OnboardingDateView.swift */,
 				5A987BD7B2C7046430B27B5C /* OnboardingHookView.swift */,
 				C308C76FB096F4DFB4E208C1 /* OnboardingNotificationsView.swift */,
+				1996C541D6EB2C6D247A9637 /* OnboardingPortsView.swift */,
 				A8FE82B272F7B89383FADF9C /* OnboardingShipTimeView.swift */,
 				D20FD3CA28C5ED832368576C /* OnboardingSummaryView.swift */,
+				1A16F3198C0C06FAE14E8FC5 /* OnboardingTripInfoView.swift */,
 				49D6816903E4D70D62101B93 /* OnboardingWarningsView.swift */,
 			);
 			path = Onboarding;
@@ -142,6 +156,7 @@
 			children = (
 				785221EAF1737A6A8ED03739 /* OnboardingModels.swift */,
 				0FE42F577909FC84234C85B7 /* TimerModels.swift */,
+				3632F454AEE2DA63460DE258 /* TripModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -253,8 +268,10 @@
 				941BC300F8E3606FAF282AE1 /* OnboardingHookView.swift in Sources */,
 				D00083F69B2632B83D46AAE3 /* OnboardingModels.swift in Sources */,
 				67CB92BC5D01A83AEDD0E856 /* OnboardingNotificationsView.swift in Sources */,
+				AE0BC4040FBAFDDD0F3DFF9E /* OnboardingPortsView.swift in Sources */,
 				720809E8216146C67964A80E /* OnboardingShipTimeView.swift in Sources */,
 				E6B059039A5D0FCB8857C6C7 /* OnboardingSummaryView.swift in Sources */,
+				AC89F8018F492673EF542799 /* OnboardingTripInfoView.swift in Sources */,
 				FF4602D6A48BAEB4E1749356 /* OnboardingViewModel.swift in Sources */,
 				B3C7B284346AF59CAA680992 /* OnboardingWarningsView.swift in Sources */,
 				7153974CF6BB5CB030C16CAA /* PaywallView.swift in Sources */,
@@ -266,6 +283,9 @@
 				CCBB6A8C3827CA95E736A606 /* ShoreSafeTypography.swift in Sources */,
 				4FB853DCB86F0FDD114D0C61 /* TimerModels.swift in Sources */,
 				E7593FBDA8371498CF670AF2 /* TimerViewModel.swift in Sources */,
+				F9F253D90567B4158E7DEF85 /* TripModels.swift in Sources */,
+				D2A2E0B977C5AA710BA5164E /* TripSetupViewModel.swift in Sources */,
+				57AD8F81351E6D8F55D7A380 /* TripStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
