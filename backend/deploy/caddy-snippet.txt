@@ -1,4 +1,0 @@
-# ShoreSafe API - append to your existing Caddyfile, do NOT overwrite it.
-api-shoresafe.<VPS>.sslip.io {
-    reverse_proxy 127.0.0.1:8000
-}
