@@ -1,10 +1,10 @@
-# ShoreSafe (iOS) — Phased PDR / Plan
+# PierRunner (iOS) — Phased PDR / Plan
 
 ## 0) Product One-Liner
-**ShoreSafe** is an offline-first port-day countdown + alarm that keeps you aligned to **ship time** (not local time) and handles **tender-port buffers** so you don’t become a pier runner.
+**PierRunner** is an offline-first port-day countdown + alarm that keeps you aligned to **ship time** (not local time) and handles **tender-port buffers** so you don’t become a pier runner.
 
 ## 1) Goal (V1)
-Ship a beautiful **iOS-only** app that:
+Ship a beautiful **iOS-only** app (light-first UI, dark mode optional) that:
 - can be set up in **<30 seconds** while stepping off the gangway
 - works **offline** reliably (no Wi‑Fi required)
 - prevents the two real failure modes:
@@ -33,6 +33,8 @@ Nothing else ships in V1 unless it directly improves “don’t miss the ship.�
 ## 4) Core Feature Bullets (what the app *does*)
 - **Modern-cruise onboarding that actually sets up the trip** (not just marketing screens)
 - **Ship Time Guardrail** so the user can’t accidentally rely on phone local time
+  - The app UI should always make the displayed time basis explicit: **SHIP TIME** badge near times and countdowns
+  - Widgets/complications should also show that the countdown is based on **SHIP TIME**
 - **Trip Setup**: add ports now, fill in “all aboard / last tender” times later when you get them
 - **Itinerary input**: manual entry **or** paste-to-import (best-effort parsing; times can be missing)
 - **Port Day plan** (per port): Dock vs Tender, buffers, escalating alarms
